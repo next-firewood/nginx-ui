@@ -1,0 +1,5 @@
+mode: dev
+port: 8989
+auth:
+  secretKey: "nginx-uii"
+  expiresIn: 86400
