@@ -21,6 +21,8 @@ func LoginHandler(svcCtx *svc.ServiceContext) gin.HandlerFunc {
 
 		if err := c.ShouldBindBodyWithJSON(req); err != nil {
 			c.JSON(http.StatusOK, gin.H{"message": err.Error()})
+
+			return
 		}
 
 		logic := public.NewLoginLogic(c.Request.Context(), svcCtx)

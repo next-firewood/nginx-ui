@@ -21,6 +21,8 @@ func UserDetailHandler(svcCtx *svc.ServiceContext) gin.HandlerFunc {
 
 		if err := c.ShouldBindQuery(req); err != nil {
 			c.JSON(http.StatusOK, gin.H{"message": err.Error()})
+
+			return
 		}
 
 		logic := user.NewUserDetailLogic(c.Request.Context(), svcCtx)
