@@ -9,8 +9,8 @@ import (
 	"rui/internal/svc"
 )
 
-// UserDetailHandler 获取所有配置文件
-// @Summary 获取配置列表
+// UserDetailHandler 用户详情
+// @Summary 用户详情
 // @Tags user
 // @Param UuidForm query api.UuidForm true "uuid"
 // @Success 200 {object} UserDetailResp

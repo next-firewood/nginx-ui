@@ -83,7 +83,7 @@ const docTemplate = `{
                 "tags": [
                     "user"
                 ],
-                "summary": "获取配置列表",
+                "summary": "用户详情",
                 "parameters": [
                     {
                         "type": "string",
@@ -137,9 +137,11 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "password": {
+                    "description": "密码",
                     "type": "string"
                 },
                 "username": {
+                    "description": "用户名",
                     "type": "string"
                 }
             }

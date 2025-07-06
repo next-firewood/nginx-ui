@@ -23,8 +23,10 @@ definitions:
   public.LoginReq:
     properties:
       password:
+        description: 密码
         type: string
       username:
+        description: 用户名
         type: string
     type: object
   public.LoginResp:
@@ -93,7 +95,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/user.UserDetailResp'
-      summary: 获取配置列表
+      summary: 用户详情
       tags:
       - user
 swagger: "2.0"
