@@ -1,22 +1,32 @@
 package response
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"rui/common/errorx"
 	"strings"
 )
 
 func Response(c *gin.Context, resp interface{}, err error) {
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"Code": 500,
-			"Msg":  "发生未知错误",
-		})
+		var codeErr *errorx.CodeError
+		if errors.As(err, &codeErr) {
+			c.JSON(http.StatusOK, gin.H{
+				"Code": codeErr.Code,
+				"Msg":  codeErr.Msg,
+			})
+		} else {
+			c.JSON(http.StatusOK, gin.H{
+				"Code": errorx.DefaultCode,
+				"Msg":  errorx.ErrMap[errorx.DefaultCode].Error(),
+			})
 
-		c.Writer.Header().Add("err", strings.TrimSpace(err.Error()))
+			c.Writer.Header().Add("err", strings.TrimSpace(err.Error()))
+		}
 	} else {
 		c.JSON(http.StatusOK, gin.H{
-			"Code": 0,
+			"Code": errorx.Success,
 			"Msg":  "OK",
 			"Data": resp,
 		})

@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
+	"log"
 	"rui/common/viper"
 	_ "rui/docs"
+	"rui/internal/repo"
 	"rui/internal/router"
 	"rui/internal/svc"
 )
@@ -14,18 +14,20 @@ import (
 const _url = "./resource/config.yaml"
 
 func main() {
+	// 获取配置
 	config := viper.InitConfig(_url)
-
-	r := gin.New()
-
+	// 初始化服务上下文
 	serviceContext := svc.NewServiceContext(config)
-
-	router.InitRouter(r, serviceContext)
-
-	if config.Mode == "dev" {
-		// Swagger 接口
-		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	// 初始化表
+	if err := repo.InitTable(repo.GetDB(config.Database)); err != nil {
+		log.Fatal(err)
 	}
 
-	r.Run(fmt.Sprintf(":%d", config.Port))
+	r := gin.New()
+	// 初始化路由
+	router.InitRouter(r, serviceContext)
+	// 启动服务
+	if err := r.Run(fmt.Sprintf(":%d", config.Port)); err != nil {
+		log.Fatal(err)
+	}
 }

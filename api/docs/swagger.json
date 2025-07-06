@@ -1,0 +1,156 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/api/public/init/server": {
+            "post": {
+                "tags": [
+                    "public"
+                ],
+                "summary": "初始化服务",
+                "parameters": [
+                    {
+                        "description": "初始化服务请求体",
+                        "name": "InitServerReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/public.InitServerReq"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/api/public/init/status": {
+            "get": {
+                "tags": [
+                    "public"
+                ],
+                "summary": "初始化状态",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/public.InitStatusRes"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/public/login": {
+            "post": {
+                "tags": [
+                    "public"
+                ],
+                "summary": "登录",
+                "parameters": [
+                    {
+                        "description": "LoginReq",
+                        "name": "LoginReq",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/public.LoginReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/public.LoginResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/detail": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "获取配置列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "uuid",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/user.UserDetailResp"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "public.InitServerReq": {
+            "type": "object",
+            "properties": {
+                "nginxUrl": {
+                    "description": "nginx目录",
+                    "type": "string"
+                },
+                "node": {
+                    "description": "公网IP",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                },
+                "username": {
+                    "description": "用户名",
+                    "type": "string"
+                }
+            }
+        },
+        "public.InitStatusRes": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "description": "1-初始化 2-未初始化账号 3-未初始化nginx目录",
+                    "type": "integer"
+                }
+            }
+        },
+        "public.LoginReq": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "public.LoginResp": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.UserDetailResp": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

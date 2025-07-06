@@ -1,0 +1,99 @@
+definitions:
+  public.InitServerReq:
+    properties:
+      nginxUrl:
+        description: nginx目录
+        type: string
+      node:
+        description: 公网IP
+        type: string
+      password:
+        description: 密码
+        type: string
+      username:
+        description: 用户名
+        type: string
+    type: object
+  public.InitStatusRes:
+    properties:
+      status:
+        description: 1-初始化 2-未初始化账号 3-未初始化nginx目录
+        type: integer
+    type: object
+  public.LoginReq:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  public.LoginResp:
+    properties:
+      token:
+        type: string
+    type: object
+  user.UserDetailResp:
+    properties:
+      name:
+        type: string
+      uuid:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/public/init/server:
+    post:
+      parameters:
+      - description: 初始化服务请求体
+        in: body
+        name: InitServerReq
+        required: true
+        schema:
+          $ref: '#/definitions/public.InitServerReq'
+      responses: {}
+      summary: 初始化服务
+      tags:
+      - public
+  /api/public/init/status:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/public.InitStatusRes'
+      summary: 初始化状态
+      tags:
+      - public
+  /api/public/login:
+    post:
+      parameters:
+      - description: LoginReq
+        in: body
+        name: LoginReq
+        required: true
+        schema:
+          $ref: '#/definitions/public.LoginReq'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/public.LoginResp'
+      summary: 登录
+      tags:
+      - public
+  /api/user/detail:
+    get:
+      parameters:
+      - in: query
+        name: uuid
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.UserDetailResp'
+      summary: 获取配置列表
+      tags:
+      - user
+swagger: "2.0"

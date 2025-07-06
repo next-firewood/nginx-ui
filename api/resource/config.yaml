@@ -1,5 +1,16 @@
 mode: dev
 port: 8989
+cache:
+  host: "127.0.0.1"
+  port: 6379
+  password: ""
+  db: 0
+database:
+  dsn: "./resource/nginxui.db"
+  connMaxIdleTime: 10m
+  maxIdleConns: 20
+  maxOpenConns: 20
+  connMaxLifetime: 10m
 auth:
   secretKey: "nginx-uii"
   expiresIn: 86400

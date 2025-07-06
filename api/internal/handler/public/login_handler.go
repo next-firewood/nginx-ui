@@ -25,7 +25,7 @@ func LoginHandler(svcCtx *svc.ServiceContext) gin.HandlerFunc {
 
 		logic := public.NewLoginLogic(c.Request.Context(), svcCtx)
 
-		resp, err := logic.Login(req)
+		resp, err := logic.LoginLogic(req)
 		response.Response(c, resp, err)
 	}
 }

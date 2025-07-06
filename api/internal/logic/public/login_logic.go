@@ -19,7 +19,7 @@ func NewLoginLogic(context context.Context, svcCtx *svc.ServiceContext) *LoginLo
 	}
 }
 
-func (l *LoginLogic) Login(req *public.LoginReq) (resp *public.LoginResp, err error) {
+func (l *LoginLogic) LoginLogic(req *public.LoginReq) (resp *public.LoginResp, err error) {
 	token, err := l.SvcCtx.Config.Auth.GenerateToken([]byte(l.SvcCtx.Config.Auth.SecretKey), jwt.MapClaims{
 		"username": req.Username,
 	})
